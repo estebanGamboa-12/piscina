@@ -2,22 +2,71 @@ const services = [
   {
     title: 'Mantenimiento de piscinas',
     description:
-      'Planes estacionales y anuales con limpieza, control químico y seguimiento digital para comunidades y residencias.'
+      'Planes estacionales y anuales con limpieza, control químico y seguimiento digital para comunidades y residencias.',
+    image: {
+      src: 'https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?auto=format&fit=crop&w=800&q=80',
+      alt: 'Técnico revisando el estado del agua en una piscina residencial'
+    }
   },
   {
     title: 'Piscinas proyectadas completas',
     description:
-      'Diseñamos y ejecutamos vasos gunitados, instalaciones hidráulicas y acabados decorativos llave en mano.'
+      'Diseñamos y ejecutamos vasos gunitados, instalaciones hidráulicas y acabados decorativos llave en mano.',
+    image: {
+      src: 'https://images.unsplash.com/photo-1505843513577-22bb7d21e455?auto=format&fit=crop&w=800&q=80',
+      alt: 'Piscina de diseño con borde infinito y vistas abiertas'
+    }
   },
   {
     title: 'Reformas e impermeabilización',
     description:
-      'Rehabilitamos estructuras, renovamos coronaciones y aplicamos sistemas de impermeabilización certificados.'
+      'Rehabilitamos estructuras, renovamos coronaciones y aplicamos sistemas de impermeabilización certificados.',
+    image: {
+      src: 'https://images.unsplash.com/photo-1519052537078-e6302a4968d4?auto=format&fit=crop&w=800&q=80',
+      alt: 'Renovación de revestimientos en una piscina familiar'
+    }
   },
   {
     title: 'Fontanería y equipos de sal',
     description:
-      'Instalamos cloración salina, bombas de calor y automatizaciones que optimizan el consumo y el confort.'
+      'Instalamos cloración salina, bombas de calor y automatizaciones que optimizan el consumo y el confort.',
+    image: {
+      src: 'https://images.unsplash.com/photo-1530543787849-128d94430c6b?auto=format&fit=crop&w=800&q=80',
+      alt: 'Cuarto técnico con equipamiento de cloración salina'
+    }
+  }
+];
+
+const projects = [
+  {
+    name: 'Residencial Valdeiglesias',
+    detail: 'Piscina climatizada con cloración salina y domótica integrada.',
+    image: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1000&q=80'
+  },
+  {
+    name: 'Hotel Sierra Azul',
+    detail: 'Lámina de agua infinita con iluminación RGB programable.',
+    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1000&q=80'
+  },
+  {
+    name: 'Urbanización Montealto',
+    detail: 'Reforma integral y automatización de control químico.',
+    image: 'https://images.unsplash.com/photo-1507502707541-f369a3b18502?auto=format&fit=crop&w=1000&q=80'
+  },
+  {
+    name: 'Vivienda unifamiliar Los Arroyos',
+    detail: 'Microcemento, playa húmeda y jacuzzi integrado.',
+    image: 'https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?auto=format&fit=crop&w=1000&q=80'
+  },
+  {
+    name: 'Comunidad Jardines del Tajo',
+    detail: 'Plan de mantenimiento integral con reportes digitales.',
+    image: 'https://images.unsplash.com/photo-1523475472560-d2df97ec485c?auto=format&fit=crop&w=1000&q=80'
+  },
+  {
+    name: 'Club Náutico San Martín',
+    detail: 'Renovación del vaso y sistemas de filtración de alto rendimiento.',
+    image: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1000&q=80'
   }
 ];
 
@@ -74,30 +123,58 @@ export default function HomePage() {
     <main className="page">
       <section className="hero">
         <div className="hero__overlay" />
-        <div className="hero__content">
-          <p className="hero__eyebrow">𝓟𝓲𝓼𝓬𝓲𝓷𝓪 𝓜𝓸𝓲𝓼𝓮𝓼 · Especialistas en piscinas premium</p>
-          <h1 className="hero__title">Diseñamos, proyectamos y cuidamos piscinas sin límites</h1>
-          <p className="hero__subtitle">
-            Convertimos cada espacio acuático en una experiencia segura y elegante: desde nuevas piscinas proyectadas hasta la
-            renovación total con tecnología de cloración salina.
-          </p>
-          <ul className="hero__list">
-            <li>Mantenimiento profesional de piscinas residenciales y comunitarias.</li>
-            <li>Proyección completa de vasos en hormigón gunitado y acabados a medida.</li>
-            <li>Reformas estructurales, impermeabilización avanzada y domótica.</li>
-            <li>Fontanería especializada con equipos de sal y automatización inteligente.</li>
-          </ul>
-          <div className="hero__actions">
-            <a className="button button--primary" href="#presupuesto">
-              Solicitar presupuesto
-            </a>
-            <a className="button button--ghost" href="#servicios">
-              Ver servicios
-            </a>
+        <div className="hero__inner">
+          <div className="hero__content">
+            <p className="hero__eyebrow">𝓟𝓲𝓼𝓬𝓲𝓷𝓪 𝓜𝓸𝓲𝓼𝓮𝓼 · Especialistas en piscinas premium</p>
+            <h1 className="hero__title">Diseñamos, proyectamos y cuidamos piscinas sin límites</h1>
+            <p className="hero__subtitle">
+              Convertimos cada espacio acuático en una experiencia segura y elegante: desde nuevas piscinas proyectadas hasta la
+              renovación total con tecnología de cloración salina.
+            </p>
+            <ul className="hero__list">
+              <li>Mantenimiento profesional de piscinas residenciales y comunitarias.</li>
+              <li>Proyección completa de vasos en hormigón gunitado y acabados a medida.</li>
+              <li>Reformas estructurales, impermeabilización avanzada y domótica.</li>
+              <li>Fontanería especializada con equipos de sal y automatización inteligente.</li>
+            </ul>
+            <div className="hero__actions">
+              <a className="button button--primary" href="#presupuesto">
+                Solicitar presupuesto
+              </a>
+              <a className="button button--ghost" href="#servicios">
+                Ver servicios
+              </a>
+            </div>
+            <div className="hero__badge">
+              <span className="hero__badge-title">Equipo certificado</span>
+              <span className="hero__badge-text">Más de 250 proyectos entregados con garantía Piscina Moisés.</span>
+            </div>
           </div>
-          <div className="hero__badge">
-            <span className="hero__badge-title">Equipo certificado</span>
-            <span className="hero__badge-text">Más de 250 proyectos entregados con garantía Piscina Moisés.</span>
+          <div className="hero__media">
+            <figure className="hero__photo hero__photo--primary">
+              <img
+                src="https://images.unsplash.com/photo-1534536281715-e28d76689b4d?auto=format&fit=crop&w=1000&q=80"
+                alt="Piscina de lujo al atardecer con iluminación ambiental"
+              />
+            </figure>
+            <div className="hero__photo-stack">
+              <figure className="hero__photo">
+                <img
+                  src="https://images.unsplash.com/photo-1531853121101-1b4b07fd4e9e?auto=format&fit=crop&w=700&q=80"
+                  alt="Detalle de cascada en piscina moderna"
+                />
+              </figure>
+              <figure className="hero__photo">
+                <img
+                  src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=700&q=80"
+                  alt="Técnico de piscina realizando comprobaciones de calidad"
+                />
+              </figure>
+            </div>
+            <div className="hero__note">
+              <span>Residencial · Hotelero · Wellness</span>
+              <p>Proyectos personalizados con seguimiento digital desde el diseño hasta el mantenimiento.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -129,11 +206,13 @@ export default function HomePage() {
         <div className="services__grid">
           {services.map((service) => (
             <article className="service-card" key={service.title}>
-              <div className="service-card__icon" aria-hidden="true">
-                <span>💧</span>
+              <div className="service-card__media">
+                <img src={service.image.src} alt={service.image.alt} loading="lazy" />
               </div>
-              <h3>{service.title}</h3>
-              <p>{service.description}</p>
+              <div className="service-card__content">
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
+              </div>
             </article>
           ))}
         </div>
@@ -154,6 +233,28 @@ export default function HomePage() {
               <h3>{highlight.title}</h3>
               <p>{highlight.description}</p>
             </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="gallery">
+        <div className="section-heading">
+          <p className="section-eyebrow">Casos recientes</p>
+          <h2>Inspiración visual de nuestros proyectos</h2>
+          <p className="section-description">
+            Así combinamos estética, ingeniería y mantenimiento profesional en residencias privadas, hoteles y comunidades de
+            vecinos en la zona centro.
+          </p>
+        </div>
+        <div className="gallery__grid">
+          {projects.map((project) => (
+            <figure className="gallery__item" key={project.name}>
+              <img src={project.image} alt={project.name} loading="lazy" />
+              <figcaption>
+                <strong>{project.name}</strong>
+                <span>{project.detail}</span>
+              </figcaption>
+            </figure>
           ))}
         </div>
       </section>
