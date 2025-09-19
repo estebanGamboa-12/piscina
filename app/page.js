@@ -1,6 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const services = [
   {
@@ -45,33 +46,99 @@ const projects = [
   {
     name: 'Residencial Valdeiglesias',
     detail: 'Piscina climatizada con cloración salina y domótica integrada.',
-    image: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1000&q=80'
+    images: [
+      {
+        src: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&q=80',
+        alt: 'Piscina climatizada con cubierta integrada'
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1563911302283-d2bc129e7570?auto=format&fit=crop&w=1200&q=80',
+        alt: 'Detalle de iluminación nocturna en piscina climatizada'
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80',
+        alt: 'Zona wellness contigua a piscina climatizada'
+      }
+    ]
   },
   {
     name: 'Hotel Sierra Azul',
     detail: 'Lámina de agua infinita con iluminación RGB programable.',
-    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1000&q=80'
+    images: [
+      {
+        src: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1200&q=80',
+        alt: 'Piscina infinita de hotel con vistas a la montaña'
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1200&q=80',
+        alt: 'Piscina infinita al atardecer con luces encendidas'
+      }
+    ]
   },
   {
     name: 'Urbanización Montealto',
     detail: 'Reforma integral y automatización de control químico.',
-    image: 'https://images.unsplash.com/photo-1507502707541-f369a3b18502?auto=format&fit=crop&w=1000&q=80'
+    images: [
+      {
+        src: 'https://images.unsplash.com/photo-1507502707541-f369a3b18502?auto=format&fit=crop&w=1200&q=80',
+        alt: 'Piscina reformada en urbanización con borde ancho'
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1500929426704-2211a46a1c38?auto=format&fit=crop&w=1200&q=80',
+        alt: 'Detalle de jacuzzi integrado junto a piscina comunitaria'
+      }
+    ]
   },
   {
     name: 'Vivienda unifamiliar Los Arroyos',
     detail: 'Microcemento, playa húmeda y jacuzzi integrado.',
-    image: 'https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?auto=format&fit=crop&w=1000&q=80'
+    images: [
+      {
+        src: 'https://images.unsplash.com/photo-1516156008625-3a9d6067fab5?auto=format&fit=crop&w=1200&q=80',
+        alt: 'Piscina privada con revestimiento en microcemento'
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1504149212288-9571d7108010?auto=format&fit=crop&w=1200&q=80',
+        alt: 'Zona de relax con jacuzzi integrado en piscina'
+      }
+    ]
   },
   {
     name: 'Comunidad Jardines del Tajo',
     detail: 'Plan de mantenimiento integral con reportes digitales.',
-    image: 'https://images.unsplash.com/photo-1523475472560-d2df97ec485c?auto=format&fit=crop&w=1000&q=80'
+    images: [
+      {
+        src: 'https://images.unsplash.com/photo-1523475472560-d2df97ec485c?auto=format&fit=crop&w=1200&q=80',
+        alt: 'Piscina comunitaria rodeada de vegetación'
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1200&q=80',
+        alt: 'Zona infantil en piscina comunitaria'
+      }
+    ]
   },
   {
     name: 'Club Náutico San Martín',
     detail: 'Renovación del vaso y sistemas de filtración de alto rendimiento.',
-    image: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1000&q=80'
+    images: [
+      {
+        src: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1200&q=80',
+        alt: 'Piscina exterior junto a club náutico'
+      },
+      {
+        src: 'https://images.unsplash.com/photo-1517832207067-4db24a2ae47c?auto=format&fit=crop&w=1200&q=80',
+        alt: 'Zona de nado deportivo en piscina del club'
+      }
+    ]
   }
+];
+
+const navLinks = [
+  { href: '#inicio', label: 'Inicio' },
+  { href: '#servicios', label: 'Servicios' },
+  { href: '#proyectos', label: 'Proyectos' },
+  { href: '#proceso', label: 'Proceso' },
+  { href: '#presupuesto', label: 'Contacto' }
 ];
 
 const sellingPoints = [
@@ -168,11 +235,6 @@ const fadeListItem = {
   }
 };
 
-const mediaReveal = {
-  hidden: { opacity: 0, scale: 0.92 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: 'easeOut' } }
-};
-
 const cardReveal = {
   hidden: { opacity: 0, y: 26 },
   visible: (index = 0) => ({
@@ -197,10 +259,133 @@ const inViewConfig = {
   viewport: { once: true, amount: 0.2 }
 };
 
-export default function HomePage() {
+const mobileMenu = {
+  hidden: { opacity: 0, y: -16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } },
+  exit: { opacity: 0, y: -12, transition: { duration: 0.2, ease: 'easeIn' } }
+};
+
+function ProjectCarousel({ project, index }) {
+  const scrollRef = useRef(null);
+
+  const handleScroll = (direction) => {
+    if (!scrollRef.current) return;
+    const distance = scrollRef.current.clientWidth * 0.9;
+    scrollRef.current.scrollBy({ left: direction * distance, behavior: 'smooth' });
+  };
+
+  const hasMultipleImages = project.images.length > 1;
+
   return (
-    <main className="page">
-      <motion.section className="hero" initial="hidden" animate="visible" variants={sectionFade}>
+    <motion.article
+      className="project-card"
+      variants={cardReveal}
+      custom={index}
+      whileHover={{ y: -6, boxShadow: '0 24px 60px rgba(0, 0, 0, 0.35)' }}
+    >
+      <div className="project-card__header">
+        <strong>{project.name}</strong>
+        <span>{project.detail}</span>
+      </div>
+      <div className="project-card__carousel">
+        <div className="project-card__viewport" ref={scrollRef}>
+          {project.images.map((image) => (
+            <div className="project-card__slide" key={image.src}>
+              <img src={image.src} alt={image.alt} loading="lazy" />
+            </div>
+          ))}
+        </div>
+        {hasMultipleImages && (
+          <div className="project-card__controls">
+            <button
+              type="button"
+              className="project-card__control"
+              onClick={() => handleScroll(-1)}
+              aria-label={`Ver imagen anterior de ${project.name}`}
+            >
+              ‹
+            </button>
+            <button
+              type="button"
+              className="project-card__control"
+              onClick={() => handleScroll(1)}
+              aria-label={`Ver imagen siguiente de ${project.name}`}
+            >
+              ›
+            </button>
+          </div>
+        )}
+      </div>
+    </motion.article>
+  );
+}
+
+export default function HomePage() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [menuOpen]);
+
+  const closeMenu = () => setMenuOpen(false);
+
+  return (
+    <>
+      <motion.header className="site-header" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
+        <div className="site-header__inner">
+          <a className="site-header__brand" href="#inicio">
+            Piscina Moisés
+          </a>
+          <nav className="site-header__nav site-header__nav--desktop">
+            <ul>
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <button
+            className="site-header__menu-button"
+            type="button"
+            onClick={() => setMenuOpen((prev) => !prev)}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+          >
+            <span />
+            <span />
+            <span />
+            <span className="sr-only">Abrir o cerrar menú</span>
+          </button>
+        </div>
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.nav
+              id="mobile-menu"
+              className="site-header__nav site-header__nav--mobile"
+              variants={mobileMenu}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <ul>
+                {navLinks.map((link) => (
+                  <li key={link.href}>
+                    <a href={link.href} onClick={closeMenu}>
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </motion.nav>
+          )}
+        </AnimatePresence>
+      </motion.header>
+      <main className="page">
+        <motion.section className="hero" id="inicio" initial="hidden" animate="visible" variants={sectionFade}>
         <div className="hero__overlay" />
         <div className="hero__light hero__light--one" aria-hidden />
         <div className="hero__light hero__light--two" aria-hidden />
@@ -249,39 +434,6 @@ export default function HomePage() {
             <motion.div className="hero__badge" variants={fadeUp}>
               <span className="hero__badge-title">Equipo certificado</span>
               <span className="hero__badge-text">Más de 250 proyectos entregados con garantía Piscina Moisés.</span>
-            </motion.div>
-          </motion.div>
-          <motion.div className="hero__media" variants={heroContent}>
-            <motion.figure
-              className="hero__photo hero__photo--primary"
-              variants={mediaReveal}
-              whileHover={{ y: -10, scale: 1.02 }}
-            >
-              <motion.img
-                src="https://images.unsplash.com/photo-1534536281715-e28d76689b4d?auto=format&fit=crop&w=1000&q=80"
-                alt="Piscina de lujo al atardecer con iluminación ambiental"
-                loading="lazy"
-              />
-            </motion.figure>
-            <motion.div className="hero__photo-stack" variants={mediaReveal}>
-              <motion.figure className="hero__photo" variants={mediaReveal} whileHover={{ y: -8, scale: 1.02 }}>
-                <motion.img
-                  src="https://images.unsplash.com/photo-1531853121101-1b4b07fd4e9e?auto=format&fit=crop&w=700&q=80"
-                  alt="Detalle de cascada en piscina moderna"
-                  loading="lazy"
-                />
-              </motion.figure>
-              <motion.figure className="hero__photo" variants={mediaReveal} whileHover={{ y: -8, scale: 1.02 }}>
-                <motion.img
-                  src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=700&q=80"
-                  alt="Técnico de piscina realizando comprobaciones de calidad"
-                  loading="lazy"
-                />
-              </motion.figure>
-            </motion.div>
-            <motion.div className="hero__note" variants={fadeUp}>
-              <span>Residencial · Hotelero · Wellness</span>
-              <p>Proyectos personalizados con seguimiento digital desde el diseño hasta el mantenimiento.</p>
             </motion.div>
           </motion.div>
         </motion.div>
@@ -357,7 +509,7 @@ export default function HomePage() {
         </div>
       </motion.section>
 
-      <motion.section className="gallery" {...inViewConfig} variants={sectionFade}>
+      <motion.section className="gallery" id="proyectos" {...inViewConfig} variants={sectionFade}>
         <motion.div className="section-heading" variants={fadeUp}>
           <p className="section-eyebrow">Casos recientes</p>
           <h2>Inspiración visual de nuestros proyectos</h2>
@@ -368,19 +520,7 @@ export default function HomePage() {
         </motion.div>
         <div className="gallery__grid">
           {projects.map((project, index) => (
-            <motion.figure
-              className="gallery__item"
-              key={project.name}
-              variants={cardReveal}
-              custom={index}
-              whileHover={{ y: -10, scale: 1.01 }}
-            >
-              <motion.img src={project.image} alt={project.name} loading="lazy" />
-              <figcaption>
-                <strong>{project.name}</strong>
-                <span>{project.detail}</span>
-              </figcaption>
-            </motion.figure>
+            <ProjectCarousel key={project.name} project={project} index={index} />
           ))}
         </div>
       </motion.section>
@@ -420,7 +560,7 @@ export default function HomePage() {
         </motion.ul>
       </motion.section>
 
-      <motion.section className="process" {...inViewConfig} variants={sectionFade}>
+      <motion.section className="process" id="proceso" {...inViewConfig} variants={sectionFade}>
         <motion.div className="section-heading" variants={fadeUp}>
           <p className="section-eyebrow">Así trabajamos</p>
           <h2>Un proceso claro, eficiente y sin sorpresas</h2>
@@ -494,6 +634,7 @@ export default function HomePage() {
           <a href="mailto:hola@piscinamoises.es">hola@piscinamoises.es</a>
         </div>
       </motion.footer>
-    </main>
+      </main>
+    </>
   );
 }
