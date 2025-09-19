@@ -136,6 +136,7 @@ const projects = [
 const navLinks = [
   { href: '#inicio', label: 'Inicio' },
   { href: '#servicios', label: 'Servicios' },
+  { href: '#ventajas', label: 'Ventajas' },
   { href: '#proyectos', label: 'Proyectos' },
   { href: '#proceso', label: 'Proceso' },
   { href: '#presupuesto', label: 'Contacto' }
@@ -154,6 +155,12 @@ const sellingPoints = [
     label: 'Garantía Piscina Moisés',
     detail: 'Materiales homologados, personal propio y servicio posventa con seguimiento continuo.'
   }
+];
+
+const heroSupportItems = [
+  { title: '15 años', description: 'Experiencia local en obra nueva y reformas' },
+  { title: '+250 proyectos', description: 'Piscinas entregadas con garantías reales' },
+  { title: 'Respuesta 24h', description: 'Atención directa ante cualquier incidencia' }
 ];
 
 const steps = [
@@ -253,6 +260,15 @@ const contactReveal = {
   }
 };
 
+const heroMedia = {
+  hidden: { opacity: 0, scale: 0.96 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.7, ease: 'easeOut', delay: 0.1 }
+  }
+};
+
 const inViewConfig = {
   initial: 'hidden',
   whileInView: 'visible',
@@ -281,7 +297,8 @@ function ProjectCarousel({ project, index }) {
       className="project-card"
       variants={cardReveal}
       custom={index}
-      whileHover={{ y: -6, boxShadow: '0 24px 60px rgba(0, 0, 0, 0.35)' }}
+      whileHover={{ y: -6, boxShadow: '0 28px 70px rgba(15, 64, 109, 0.18)' }}
+
     >
       <div className="project-card__header">
         <strong>{project.name}</strong>
@@ -335,6 +352,16 @@ export default function HomePage() {
   return (
     <>
       <motion.header className="site-header" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
+        <div className="site-topbar">
+          <div className="site-topbar__inner">
+            <span>Construcción y mantenimiento de piscinas en Madrid</span>
+            <div className="site-topbar__links">
+              <a href="tel:+34911011222">91 101 12 22</a>
+              <a href="mailto:hola@piscinamoises.es">hola@piscinamoises.es</a>
+            </div>
+          </div>
+        </div>
+
         <div className="site-header__inner">
           <a className="site-header__brand" href="#inicio">
             Piscina Moisés
@@ -348,18 +375,23 @@ export default function HomePage() {
               ))}
             </ul>
           </nav>
-          <button
-            className="site-header__menu-button"
-            type="button"
-            onClick={() => setMenuOpen((prev) => !prev)}
-            aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-          >
-            <span />
-            <span />
-            <span />
-            <span className="sr-only">Abrir o cerrar menú</span>
-          </button>
+          <div className="site-header__actions">
+            <a className="site-header__cta" href="#presupuesto">
+              Pedir presupuesto
+            </a>
+            <button
+              className="site-header__menu-button"
+              type="button"
+              onClick={() => setMenuOpen((prev) => !prev)}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+            >
+              <span />
+              <span />
+              <span />
+              <span className="sr-only">Abrir o cerrar menú</span>
+            </button>
+          </div>
         </div>
         <AnimatePresence>
           {menuOpen && (
@@ -380,260 +412,325 @@ export default function HomePage() {
                   </li>
                 ))}
               </ul>
+              <div className="site-header__mobile-extra">
+                <a href="tel:+34911011222" onClick={closeMenu}>
+                  Llamar al 91 101 12 22
+                </a>
+                <a href="#presupuesto" onClick={closeMenu}>
+                  Solicitar presupuesto
+                </a>
+              </div>
             </motion.nav>
           )}
         </AnimatePresence>
       </motion.header>
       <main className="page">
         <motion.section className="hero" id="inicio" initial="hidden" animate="visible" variants={sectionFade}>
-        <div className="hero__overlay" />
-        <div className="hero__light hero__light--one" aria-hidden />
-        <div className="hero__light hero__light--two" aria-hidden />
-        <motion.div className="hero__inner" variants={heroContainer}>
-          <motion.div className="hero__content" variants={heroContent}>
-            <motion.p className="hero__eyebrow" variants={fadeUp}>
-              𝓟𝓲𝓼𝓬𝓲𝓷𝓪 𝓜𝓸𝓲𝓼𝓮𝓼 · Especialistas en piscinas premium
-            </motion.p>
-            <motion.h1 className="hero__title" variants={fadeUp}>
-              Diseñamos, proyectamos y cuidamos piscinas sin límites
-            </motion.h1>
-            <motion.p className="hero__subtitle" variants={fadeUp}>
-              Convertimos cada espacio acuático en una experiencia segura y elegante: desde nuevas piscinas proyectadas hasta la
-              renovación total con tecnología de cloración salina.
-            </motion.p>
-            <motion.ul className="hero__list" variants={listVariants}>
+          <div className="hero__background" aria-hidden />
+          <motion.div className="hero__inner" variants={heroContainer}>
+            <motion.div className="hero__content" variants={heroContent}>
+              <motion.p className="hero__eyebrow" variants={fadeUp}>
+                Construcción de piscinas en Madrid y zonas limítrofes
+              </motion.p>
+              <motion.h1 className="hero__title" variants={fadeUp}>
+                Tu piscina a medida lista para disfrutar todo el año
+              </motion.h1>
+              <motion.p className="hero__subtitle" variants={fadeUp}>
+                Diseñamos, ejecutamos y mantenemos piscinas residenciales y comunitarias con personal propio, materiales
+                certificados y supervisión constante para garantizar un agua impecable.
+              </motion.p>
+              <motion.ul className="hero__list" variants={listVariants}>
+                {[
+                  'Obra nueva en hormigón gunitado con plazos cerrados y garantía de 10 años.',
+                  'Reformas completas, cambio de coronaciones e impermeabilizaciones sin fugas.',
+                  'Planes de mantenimiento con informes digitales y respuesta técnica en 24h.'
+                ].map((item) => (
+                  <motion.li key={item} variants={fadeListItem}>
+                    {item}
+                  </motion.li>
+                ))}
+              </motion.ul>
+              <motion.div className="hero__actions" variants={fadeUp}>
+                <motion.a
+                  className="button button--primary"
+                  href="#presupuesto"
+                  whileHover={{ y: -4, boxShadow: '0 16px 40px rgba(13, 140, 208, 0.4)' }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  Solicitar presupuesto
+                </motion.a>
+                <motion.a
+                  className="button button--ghost"
+                  href="#servicios"
+                  whileHover={{ y: -4, borderColor: 'rgba(13, 140, 208, 0.45)' }}
+                  whileTap={{ scale: 0.97 }}
+                >
+                  Ver servicios
+                </motion.a>
+              </motion.div>
+              <motion.div className="hero__support" variants={fadeUp}>
+                {heroSupportItems.map((item) => (
+                  <div key={item.title} className="hero__support-item">
+                    <strong>{item.title}</strong>
+                    <span>{item.description}</span>
+                  </div>
+                ))}
+              </motion.div>
+            </motion.div>
+            <motion.div className="hero__media" variants={heroMedia}>
+              <div className="hero__image">
+                <img
+                  src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad?auto=format&fit=crop&w=1200&q=80"
+                  alt="Piscina moderna con borde infinito y zona de descanso"
+                />
+                <div className="hero__media-badge">
+                  <strong>+250 proyectos</strong>
+                  <span>Construidos y reformados con garantía integral</span>
+                </div>
+              </div>
+              <div className="hero__contact-card">
+                <span className="hero__contact-eyebrow">Asesoramiento inmediato</span>
+                <a className="hero__contact-phone" href="tel:+34911011222">
+                  91 101 12 22
+                </a>
+                <p>Atendemos Madrid, Toledo, Ávila y Segovia todos los días de la semana.</p>
+                <a className="hero__contact-link" href="mailto:hola@piscinamoises.es">
+                  hola@piscinamoises.es
+                </a>
+              </div>
+            </motion.div>
+          </motion.div>
+        </motion.section>
+
+        <motion.section className="selling-points" id="servicios" {...inViewConfig} variants={sectionFade}>
+          <div className="section__inner">
+            <motion.div className="section-heading" variants={fadeUp}>
+              <p className="section-eyebrow">Por qué nos eligen</p>
+              <h2>Soluciones integrales y artesanía en cada detalle</h2>
+              <p className="section-description">
+                Coordinamos todas las fases del proyecto con un interlocutor único. Desde el estudio inicial hasta el primer baño,
+                controlamos plazos, calidad y presupuesto para que disfrutes sin sorpresas.
+              </p>
+            </motion.div>
+            <div className="selling-points__grid">
+              {sellingPoints.map((point, index) => (
+                <motion.article
+                  className="card"
+                  key={point.label}
+                  variants={cardReveal}
+                  custom={index}
+                  whileHover={{ y: -8, boxShadow: '0 26px 70px rgba(15, 64, 109, 0.18)' }}
+                >
+                  <h3>{point.label}</h3>
+                  <p>{point.detail}</p>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </motion.section>
+
+        <motion.section className="services" {...inViewConfig} variants={sectionFade}>
+          <div className="section__inner">
+            <motion.div className="section-heading" variants={fadeUp}>
+              <p className="section-eyebrow">Soluciones a medida</p>
+              <h2>Servicios especializados para cada necesidad</h2>
+            </motion.div>
+            <div className="services__grid">
+              {services.map((service, index) => (
+                <motion.article
+                  className="service-card"
+                  key={service.title}
+                  variants={cardReveal}
+                  custom={index}
+                  whileHover={{ y: -10, scale: 1.01 }}
+                >
+                  <div className="service-card__media">
+                    <motion.img src={service.image.src} alt={service.image.alt} loading="lazy" />
+                  </div>
+                  <div className="service-card__content">
+                    <h3>{service.title}</h3>
+                    <p>{service.description}</p>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </motion.section>
+
+        <motion.section className="highlights" id="ventajas" {...inViewConfig} variants={sectionFade}>
+          <div className="section__inner">
+            <motion.div className="section-heading" variants={fadeUp}>
+              <p className="section-eyebrow">Nuestra forma de trabajar</p>
+              <h2>Expertos en proyectos complejos y mantenimiento continuo</h2>
+              <p className="section-description">
+                Integramos arquitectura, ingeniería y mantenimiento en un mismo equipo. Cada piscina recibe un plan único con
+                inspecciones programadas, informes digitales y recomendaciones para optimizar recursos.
+              </p>
+            </motion.div>
+            <div className="highlights__grid">
+              {highlights.map((highlight, index) => (
+                <motion.article className="highlight-card" key={highlight.title} variants={cardReveal} custom={index}>
+                  <h3>{highlight.title}</h3>
+                  <p>{highlight.description}</p>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </motion.section>
+
+        <motion.section className="gallery" id="proyectos" {...inViewConfig} variants={sectionFade}>
+          <div className="section__inner">
+            <motion.div className="section-heading" variants={fadeUp}>
+              <p className="section-eyebrow">Casos recientes</p>
+              <h2>Inspiración visual de nuestros proyectos</h2>
+              <p className="section-description">
+                Así combinamos estética, ingeniería y mantenimiento profesional en residencias privadas, hoteles y comunidades de
+                vecinos en la zona centro.
+              </p>
+            </motion.div>
+            <div className="gallery__grid">
+              {projects.map((project, index) => (
+                <ProjectCarousel key={project.name} project={project} index={index} />
+              ))}
+            </div>
+          </div>
+        </motion.section>
+
+        <motion.section className="cta" {...inViewConfig} variants={sectionFade}>
+          <div className="cta__inner">
+            <motion.div className="cta__text" variants={fadeUp}>
+              <p className="section-eyebrow">Piscinas impecables todo el año</p>
+              <h2>
+                Mantenimiento continuo
+                <br /> con seguimiento digital
+              </h2>
+              <p>
+                Recibe informes tras cada visita, controla el estado del agua y confía en un plan diseñado para tu piscina. Nos
+                encargamos de todo para que tú solo tengas que disfrutarla.
+              </p>
+            </motion.div>
+            <motion.ul className="cta__list" variants={fadeUp}>
               {[
-                'Mantenimiento profesional de piscinas residenciales y comunitarias.',
-                'Proyección completa de vasos en hormigón gunitado y acabados a medida.',
-                'Reformas estructurales, impermeabilización avanzada y domótica.',
-                'Fontanería especializada con equipos de sal y automatización inteligente.'
-              ].map((item) => (
-                <motion.li key={item} variants={fadeListItem}>
-                  {item}
+                {
+                  title: 'Visitas programadas',
+                  detail: 'Calendario adaptado a tu uso, con recordatorios automáticos.'
+                },
+                {
+                  title: 'Control químico preciso',
+                  detail: 'Mediciones periódicas y ajustes exactos para garantizar seguridad.'
+                },
+                {
+                  title: 'Asistencia 24/7',
+                  detail: 'Disponibilidad para emergencias con técnicos especializados.'
+                }
+              ].map((item, index) => (
+                <motion.li key={item.title} variants={cardReveal} custom={index}>
+                  <strong>{item.title}</strong>
+                  <span>{item.detail}</span>
                 </motion.li>
               ))}
             </motion.ul>
-            <motion.div className="hero__actions" variants={fadeUp}>
-              <motion.a
+          </div>
+        </motion.section>
+
+        <motion.section className="process" id="proceso" {...inViewConfig} variants={sectionFade}>
+          <div className="section__inner">
+            <motion.div className="section-heading" variants={fadeUp}>
+              <p className="section-eyebrow">Así trabajamos</p>
+              <h2>Un proceso claro, eficiente y sin sorpresas</h2>
+            </motion.div>
+            <div className="process__grid">
+              {steps.map((step, index) => (
+                <motion.article className="process-card" key={step.title} variants={cardReveal} custom={index}>
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </motion.section>
+
+        <motion.section className="contact" id="presupuesto" {...inViewConfig} variants={sectionFade}>
+          <div className="contact__inner">
+            <motion.div className="contact__intro" variants={fadeUp}>
+              <p className="section-eyebrow">Solicita tu propuesta</p>
+              <h2>Pide un presupuesto personalizado</h2>
+              <p className="section-description">
+                Cuéntanos qué necesita tu piscina y te devolveremos una propuesta en menos de 24 horas.
+              </p>
+            </motion.div>
+            <motion.form className="contact__form" variants={contactReveal}>
+              <motion.div className="form-row" variants={fadeUp}>
+                <label htmlFor="nombre">Nombre y apellidos</label>
+                <input id="nombre" name="nombre" type="text" placeholder="Tu nombre" required />
+              </motion.div>
+              <motion.div className="form-row" variants={fadeUp}>
+                <label htmlFor="email">Correo electrónico</label>
+                <input id="email" name="email" type="email" placeholder="tucorreo@email.com" required />
+              </motion.div>
+              <motion.div className="form-row" variants={fadeUp}>
+                <label htmlFor="telefono">Teléfono</label>
+                <input id="telefono" name="telefono" type="tel" placeholder="Tu teléfono" />
+              </motion.div>
+              <motion.div className="form-row" variants={fadeUp}>
+                <label htmlFor="servicio">Servicio de interés</label>
+                <select id="servicio" name="servicio" defaultValue="">
+                  <option value="" disabled>
+                    Selecciona una opción
+                  </option>
+                  <option value="mantenimiento">Mantenimiento de piscinas</option>
+                  <option value="proyeccion">Piscina proyectada nueva</option>
+                  <option value="reforma">Reforma o impermeabilización</option>
+                  <option value="fontaneria">Fontanería y cloración salina</option>
+                  <option value="otro">Otros trabajos</option>
+                </select>
+              </motion.div>
+              <motion.div className="form-row" variants={fadeUp}>
+                <label htmlFor="mensaje">Cuéntanos más detalles</label>
+                <textarea
+                  id="mensaje"
+                  name="mensaje"
+                  rows="4"
+                  placeholder="Describe el estado de tu piscina y qué necesitas resolver"
+                />
+              </motion.div>
+              <motion.button
                 className="button button--primary"
-                href="#presupuesto"
-                whileHover={{ y: -4, boxShadow: '0 16px 40px rgba(15, 176, 206, 0.55)' }}
-                whileTap={{ scale: 0.96 }}
+                type="submit"
+                variants={fadeUp}
+                whileHover={{ y: -3 }}
+                whileTap={{ scale: 0.97 }}
               >
-                Solicitar presupuesto
-              </motion.a>
-              <motion.a
-                className="button button--ghost"
-                href="#servicios"
-                whileHover={{ y: -4, borderColor: 'rgba(255, 255, 255, 0.65)' }}
-                whileTap={{ scale: 0.96 }}
-              >
-                Ver servicios
-              </motion.a>
-            </motion.div>
-            <motion.div className="hero__badge" variants={fadeUp}>
-              <span className="hero__badge-title">Equipo certificado</span>
-              <span className="hero__badge-text">Más de 250 proyectos entregados con garantía Piscina Moisés.</span>
-            </motion.div>
-          </motion.div>
-        </motion.div>
-      </motion.section>
+                Enviar solicitud
+              </motion.button>
+            </motion.form>
+            <motion.aside className="contact__info" variants={cardReveal}>
+              <h3>¿Prefieres hablar con nosotros?</h3>
+              <p>Resolvemos dudas técnicas, urgencias y visitas de valoración en menos de 24 horas.</p>
+              <a href="tel:+34911011222">91 101 12 22</a>
+              <a href="mailto:hola@piscinamoises.es">hola@piscinamoises.es</a>
+              <ul>
+                <li>Horario: lunes a sábado de 8:00 a 20:00</li>
+                <li>Servicio de emergencia para comunidades y hoteles</li>
+                <li>Cobertura: Comunidad de Madrid y provincias vecinas</li>
+              </ul>
+            </motion.aside>
+          </div>
+        </motion.section>
 
-      <motion.section className="selling-points" id="servicios" {...inViewConfig} variants={sectionFade}>
-        <motion.div className="section-heading" variants={fadeUp}>
-          <p className="section-eyebrow">Por qué nos eligen</p>
-          <h2>Soluciones integrales y artesanía en cada detalle</h2>
-          <p className="section-description">
-            Somos una empresa española especializada en piscinas a medida. Coordinamos todas las fases del proyecto para que
-            disfrutes sin preocupaciones, con comunicación directa y tiempos de respuesta inmediatos.
-          </p>
-        </motion.div>
-        <div className="selling-points__grid">
-          {sellingPoints.map((point, index) => (
-            <motion.article
-              className="card"
-              key={point.label}
-              variants={cardReveal}
-              custom={index}
-              whileHover={{ y: -10, boxShadow: '0 26px 70px rgba(0, 0, 0, 0.35)' }}
-            >
-              <h3>{point.label}</h3>
-              <p>{point.detail}</p>
-            </motion.article>
-          ))}
-        </div>
-      </motion.section>
+        <motion.footer className="footer" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
+          <div className="footer__inner">
+            <div className="footer__brand">
+              <strong>Piscina Moisés</strong>
+              <p>Construcción, reformas y mantenimiento integral de piscinas.</p>
+            </div>
+            <div className="footer__contact">
+              <a href="tel:+34911011222">91 101 12 22</a>
+              <a href="mailto:hola@piscinamoises.es">hola@piscinamoises.es</a>
+            </div>
+          </div>
+        </motion.footer>
 
-      <motion.section className="services" {...inViewConfig} variants={sectionFade}>
-        <motion.div className="section-heading" variants={fadeUp}>
-          <p className="section-eyebrow">Soluciones a medida</p>
-          <h2>Servicios especializados para cada necesidad</h2>
-        </motion.div>
-        <div className="services__grid">
-          {services.map((service, index) => (
-            <motion.article
-              className="service-card"
-              key={service.title}
-              variants={cardReveal}
-              custom={index}
-              whileHover={{ y: -12, scale: 1.01 }}
-            >
-              <div className="service-card__media">
-                <motion.img src={service.image.src} alt={service.image.alt} loading="lazy" />
-              </div>
-              <div className="service-card__content">
-                <h3>{service.title}</h3>
-                <p>{service.description}</p>
-              </div>
-            </motion.article>
-          ))}
-        </div>
-      </motion.section>
-
-      <motion.section className="highlights" {...inViewConfig} variants={sectionFade}>
-        <motion.div className="section-heading" variants={fadeUp}>
-          <p className="section-eyebrow">Nuestra forma de trabajar</p>
-          <h2>Expertos en proyectos complejos y mantenimiento continuo</h2>
-          <p className="section-description">
-            Integramos arquitectura, ingeniería y mantenimiento en un mismo equipo. Cada piscina recibe un plan único con
-            inspecciones programadas, informes digitales y recomendaciones para optimizar recursos.
-          </p>
-        </motion.div>
-        <div className="highlights__grid">
-          {highlights.map((highlight, index) => (
-            <motion.article className="highlight-card" key={highlight.title} variants={cardReveal} custom={index}>
-              <h3>{highlight.title}</h3>
-              <p>{highlight.description}</p>
-            </motion.article>
-          ))}
-        </div>
-      </motion.section>
-
-      <motion.section className="gallery" id="proyectos" {...inViewConfig} variants={sectionFade}>
-        <motion.div className="section-heading" variants={fadeUp}>
-          <p className="section-eyebrow">Casos recientes</p>
-          <h2>Inspiración visual de nuestros proyectos</h2>
-          <p className="section-description">
-            Así combinamos estética, ingeniería y mantenimiento profesional en residencias privadas, hoteles y comunidades de
-            vecinos en la zona centro.
-          </p>
-        </motion.div>
-        <div className="gallery__grid">
-          {projects.map((project, index) => (
-            <ProjectCarousel key={project.name} project={project} index={index} />
-          ))}
-        </div>
-      </motion.section>
-
-      <motion.section className="cta" {...inViewConfig} variants={sectionFade}>
-        <motion.div className="cta__text" variants={fadeUp}>
-          <p className="section-eyebrow">Piscinas impecables todo el año</p>
-          <h2>
-            Mantenimiento continuo
-            <br /> con seguimiento digital
-          </h2>
-          <p>
-            Recibe informes tras cada visita, controla el estado del agua y confía en un plan diseñado para tu piscina. Nos
-            encargamos de todo para que tú solo tengas que disfrutarla.
-          </p>
-        </motion.div>
-        <motion.ul className="cta__list" variants={fadeUp}>
-          {[
-            {
-              title: 'Visitas programadas',
-              detail: 'Calendario adaptado a tu uso, con recordatorios automáticos.'
-            },
-            {
-              title: 'Control químico preciso',
-              detail: 'Mediciones periódicas y ajustes exactos para garantizar seguridad.'
-            },
-            {
-              title: 'Asistencia 24/7',
-              detail: 'Disponibilidad para emergencias con técnicos especializados.'
-            }
-          ].map((item, index) => (
-            <motion.li key={item.title} variants={cardReveal} custom={index}>
-              <strong>{item.title}</strong>
-              <span>{item.detail}</span>
-            </motion.li>
-          ))}
-        </motion.ul>
-      </motion.section>
-
-      <motion.section className="process" id="proceso" {...inViewConfig} variants={sectionFade}>
-        <motion.div className="section-heading" variants={fadeUp}>
-          <p className="section-eyebrow">Así trabajamos</p>
-          <h2>Un proceso claro, eficiente y sin sorpresas</h2>
-        </motion.div>
-        <div className="process__grid">
-          {steps.map((step, index) => (
-            <motion.article className="process-card" key={step.title} variants={cardReveal} custom={index}>
-              <h3>{step.title}</h3>
-              <p>{step.description}</p>
-            </motion.article>
-          ))}
-        </div>
-      </motion.section>
-
-      <motion.section className="contact" id="presupuesto" {...inViewConfig} variants={sectionFade}>
-        <motion.div className="section-heading" variants={fadeUp}>
-          <p className="section-eyebrow">Solicita tu propuesta</p>
-          <h2>Pide un presupuesto personalizado</h2>
-          <p className="section-description">
-            Cuéntanos qué necesita tu piscina y te devolveremos una propuesta en menos de 24 horas.
-          </p>
-        </motion.div>
-        <motion.form className="contact__form" variants={contactReveal}>
-          <motion.div className="form-row" variants={fadeUp}>
-            <label htmlFor="nombre">Nombre y apellidos</label>
-            <input id="nombre" name="nombre" type="text" placeholder="Tu nombre" required />
-          </motion.div>
-          <motion.div className="form-row" variants={fadeUp}>
-            <label htmlFor="email">Correo electrónico</label>
-            <input id="email" name="email" type="email" placeholder="tucorreo@email.com" required />
-          </motion.div>
-          <motion.div className="form-row" variants={fadeUp}>
-            <label htmlFor="telefono">Teléfono</label>
-            <input id="telefono" name="telefono" type="tel" placeholder="Tu teléfono" />
-          </motion.div>
-          <motion.div className="form-row" variants={fadeUp}>
-            <label htmlFor="servicio">Servicio de interés</label>
-            <select id="servicio" name="servicio" defaultValue="">
-              <option value="" disabled>
-                Selecciona una opción
-              </option>
-              <option value="mantenimiento">Mantenimiento de piscinas</option>
-              <option value="proyeccion">Piscina proyectada nueva</option>
-              <option value="reforma">Reforma o impermeabilización</option>
-              <option value="fontaneria">Fontanería y cloración salina</option>
-              <option value="otro">Otros trabajos</option>
-            </select>
-          </motion.div>
-          <motion.div className="form-row" variants={fadeUp}>
-            <label htmlFor="mensaje">Cuéntanos más detalles</label>
-            <textarea
-              id="mensaje"
-              name="mensaje"
-              rows="4"
-              placeholder="Describe el estado de tu piscina y qué necesitas resolver"
-            />
-          </motion.div>
-          <motion.button className="button button--primary" type="submit" variants={fadeUp} whileHover={{ y: -3 }} whileTap={{ scale: 0.97 }}>
-            Enviar solicitud
-          </motion.button>
-        </motion.form>
-      </motion.section>
-
-      <motion.footer className="footer" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
-        <div>
-          <strong>Piscina Moisés</strong>
-          <p>Servicio integral · Comunidad de Madrid y provincias colindantes</p>
-        </div>
-        <div className="footer__contact">
-          <a href="tel:+34911011222">91 101 12 22</a>
-          <a href="mailto:hola@piscinamoises.es">hola@piscinamoises.es</a>
-        </div>
-      </motion.footer>
       </main>
     </>
   );
