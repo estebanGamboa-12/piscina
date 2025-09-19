@@ -1,3 +1,7 @@
+'use client';
+
+import { motion } from 'framer-motion';
+
 const services = [
   {
     title: 'Mantenimiento de piscinas',
@@ -118,149 +122,271 @@ const highlights = [
   }
 ];
 
+const sectionFade = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: 'easeOut' } }
+};
+
+const heroContainer = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: 'easeOut' } }
+};
+
+const heroContent = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: 'easeOut', staggerChildren: 0.12, delayChildren: 0.2 }
+  }
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: 'easeOut' }
+  }
+};
+
+const listVariants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: 'easeOut', staggerChildren: 0.1 }
+  }
+};
+
+const fadeListItem = {
+  hidden: { opacity: 0, x: -18 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.5, ease: 'easeOut' }
+  }
+};
+
+const mediaReveal = {
+  hidden: { opacity: 0, scale: 0.92 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: 'easeOut' } }
+};
+
+const cardReveal = {
+  hidden: { opacity: 0, y: 26 },
+  visible: (index = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, ease: 'easeOut', delay: index * 0.08 }
+  })
+};
+
+const contactReveal = {
+  hidden: { opacity: 0, scale: 0.97 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.6, ease: 'easeOut', delayChildren: 0.1, staggerChildren: 0.08 }
+  }
+};
+
+const inViewConfig = {
+  initial: 'hidden',
+  whileInView: 'visible',
+  viewport: { once: true, amount: 0.2 }
+};
+
 export default function HomePage() {
   return (
     <main className="page">
-      <section className="hero">
+      <motion.section className="hero" initial="hidden" animate="visible" variants={sectionFade}>
         <div className="hero__overlay" />
-        <div className="hero__inner">
-          <div className="hero__content">
-            <p className="hero__eyebrow">𝓟𝓲𝓼𝓬𝓲𝓷𝓪 𝓜𝓸𝓲𝓼𝓮𝓼 · Especialistas en piscinas premium</p>
-            <h1 className="hero__title">Diseñamos, proyectamos y cuidamos piscinas sin límites</h1>
-            <p className="hero__subtitle">
+        <div className="hero__light hero__light--one" aria-hidden />
+        <div className="hero__light hero__light--two" aria-hidden />
+        <motion.div className="hero__inner" variants={heroContainer}>
+          <motion.div className="hero__content" variants={heroContent}>
+            <motion.p className="hero__eyebrow" variants={fadeUp}>
+              𝓟𝓲𝓼𝓬𝓲𝓷𝓪 𝓜𝓸𝓲𝓼𝓮𝓼 · Especialistas en piscinas premium
+            </motion.p>
+            <motion.h1 className="hero__title" variants={fadeUp}>
+              Diseñamos, proyectamos y cuidamos piscinas sin límites
+            </motion.h1>
+            <motion.p className="hero__subtitle" variants={fadeUp}>
               Convertimos cada espacio acuático en una experiencia segura y elegante: desde nuevas piscinas proyectadas hasta la
               renovación total con tecnología de cloración salina.
-            </p>
-            <ul className="hero__list">
-              <li>Mantenimiento profesional de piscinas residenciales y comunitarias.</li>
-              <li>Proyección completa de vasos en hormigón gunitado y acabados a medida.</li>
-              <li>Reformas estructurales, impermeabilización avanzada y domótica.</li>
-              <li>Fontanería especializada con equipos de sal y automatización inteligente.</li>
-            </ul>
-            <div className="hero__actions">
-              <a className="button button--primary" href="#presupuesto">
+            </motion.p>
+            <motion.ul className="hero__list" variants={listVariants}>
+              {[
+                'Mantenimiento profesional de piscinas residenciales y comunitarias.',
+                'Proyección completa de vasos en hormigón gunitado y acabados a medida.',
+                'Reformas estructurales, impermeabilización avanzada y domótica.',
+                'Fontanería especializada con equipos de sal y automatización inteligente.'
+              ].map((item) => (
+                <motion.li key={item} variants={fadeListItem}>
+                  {item}
+                </motion.li>
+              ))}
+            </motion.ul>
+            <motion.div className="hero__actions" variants={fadeUp}>
+              <motion.a
+                className="button button--primary"
+                href="#presupuesto"
+                whileHover={{ y: -4, boxShadow: '0 16px 40px rgba(15, 176, 206, 0.55)' }}
+                whileTap={{ scale: 0.96 }}
+              >
                 Solicitar presupuesto
-              </a>
-              <a className="button button--ghost" href="#servicios">
+              </motion.a>
+              <motion.a
+                className="button button--ghost"
+                href="#servicios"
+                whileHover={{ y: -4, borderColor: 'rgba(255, 255, 255, 0.65)' }}
+                whileTap={{ scale: 0.96 }}
+              >
                 Ver servicios
-              </a>
-            </div>
-            <div className="hero__badge">
+              </motion.a>
+            </motion.div>
+            <motion.div className="hero__badge" variants={fadeUp}>
               <span className="hero__badge-title">Equipo certificado</span>
               <span className="hero__badge-text">Más de 250 proyectos entregados con garantía Piscina Moisés.</span>
-            </div>
-          </div>
-          <div className="hero__media">
-            <figure className="hero__photo hero__photo--primary">
-              <img
+            </motion.div>
+          </motion.div>
+          <motion.div className="hero__media" variants={heroContent}>
+            <motion.figure
+              className="hero__photo hero__photo--primary"
+              variants={mediaReveal}
+              whileHover={{ y: -10, scale: 1.02 }}
+            >
+              <motion.img
                 src="https://images.unsplash.com/photo-1534536281715-e28d76689b4d?auto=format&fit=crop&w=1000&q=80"
                 alt="Piscina de lujo al atardecer con iluminación ambiental"
+                loading="lazy"
               />
-            </figure>
-            <div className="hero__photo-stack">
-              <figure className="hero__photo">
-                <img
+            </motion.figure>
+            <motion.div className="hero__photo-stack" variants={mediaReveal}>
+              <motion.figure className="hero__photo" variants={mediaReveal} whileHover={{ y: -8, scale: 1.02 }}>
+                <motion.img
                   src="https://images.unsplash.com/photo-1531853121101-1b4b07fd4e9e?auto=format&fit=crop&w=700&q=80"
                   alt="Detalle de cascada en piscina moderna"
+                  loading="lazy"
                 />
-              </figure>
-              <figure className="hero__photo">
-                <img
+              </motion.figure>
+              <motion.figure className="hero__photo" variants={mediaReveal} whileHover={{ y: -8, scale: 1.02 }}>
+                <motion.img
                   src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=700&q=80"
                   alt="Técnico de piscina realizando comprobaciones de calidad"
+                  loading="lazy"
                 />
-              </figure>
-            </div>
-            <div className="hero__note">
+              </motion.figure>
+            </motion.div>
+            <motion.div className="hero__note" variants={fadeUp}>
               <span>Residencial · Hotelero · Wellness</span>
               <p>Proyectos personalizados con seguimiento digital desde el diseño hasta el mantenimiento.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      </motion.section>
 
-      <section className="selling-points" id="servicios">
-        <div className="section-heading">
+      <motion.section className="selling-points" id="servicios" {...inViewConfig} variants={sectionFade}>
+        <motion.div className="section-heading" variants={fadeUp}>
           <p className="section-eyebrow">Por qué nos eligen</p>
           <h2>Soluciones integrales y artesanía en cada detalle</h2>
           <p className="section-description">
             Somos una empresa española especializada en piscinas a medida. Coordinamos todas las fases del proyecto para que
             disfrutes sin preocupaciones, con comunicación directa y tiempos de respuesta inmediatos.
           </p>
-        </div>
+        </motion.div>
         <div className="selling-points__grid">
-          {sellingPoints.map((point) => (
-            <article className="card" key={point.label}>
+          {sellingPoints.map((point, index) => (
+            <motion.article
+              className="card"
+              key={point.label}
+              variants={cardReveal}
+              custom={index}
+              whileHover={{ y: -10, boxShadow: '0 26px 70px rgba(0, 0, 0, 0.35)' }}
+            >
               <h3>{point.label}</h3>
               <p>{point.detail}</p>
-            </article>
+            </motion.article>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section className="services">
-        <div className="section-heading">
+      <motion.section className="services" {...inViewConfig} variants={sectionFade}>
+        <motion.div className="section-heading" variants={fadeUp}>
           <p className="section-eyebrow">Soluciones a medida</p>
           <h2>Servicios especializados para cada necesidad</h2>
-        </div>
+        </motion.div>
         <div className="services__grid">
-          {services.map((service) => (
-            <article className="service-card" key={service.title}>
+          {services.map((service, index) => (
+            <motion.article
+              className="service-card"
+              key={service.title}
+              variants={cardReveal}
+              custom={index}
+              whileHover={{ y: -12, scale: 1.01 }}
+            >
               <div className="service-card__media">
-                <img src={service.image.src} alt={service.image.alt} loading="lazy" />
+                <motion.img src={service.image.src} alt={service.image.alt} loading="lazy" />
               </div>
               <div className="service-card__content">
                 <h3>{service.title}</h3>
                 <p>{service.description}</p>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section className="highlights">
-        <div className="section-heading">
+      <motion.section className="highlights" {...inViewConfig} variants={sectionFade}>
+        <motion.div className="section-heading" variants={fadeUp}>
           <p className="section-eyebrow">Nuestra forma de trabajar</p>
           <h2>Expertos en proyectos complejos y mantenimiento continuo</h2>
           <p className="section-description">
             Integramos arquitectura, ingeniería y mantenimiento en un mismo equipo. Cada piscina recibe un plan único con
             inspecciones programadas, informes digitales y recomendaciones para optimizar recursos.
           </p>
-        </div>
+        </motion.div>
         <div className="highlights__grid">
-          {highlights.map((highlight) => (
-            <article className="highlight-card" key={highlight.title}>
+          {highlights.map((highlight, index) => (
+            <motion.article className="highlight-card" key={highlight.title} variants={cardReveal} custom={index}>
               <h3>{highlight.title}</h3>
               <p>{highlight.description}</p>
-            </article>
+            </motion.article>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section className="gallery">
-        <div className="section-heading">
+      <motion.section className="gallery" {...inViewConfig} variants={sectionFade}>
+        <motion.div className="section-heading" variants={fadeUp}>
           <p className="section-eyebrow">Casos recientes</p>
           <h2>Inspiración visual de nuestros proyectos</h2>
           <p className="section-description">
             Así combinamos estética, ingeniería y mantenimiento profesional en residencias privadas, hoteles y comunidades de
             vecinos en la zona centro.
           </p>
-        </div>
+        </motion.div>
         <div className="gallery__grid">
-          {projects.map((project) => (
-            <figure className="gallery__item" key={project.name}>
-              <img src={project.image} alt={project.name} loading="lazy" />
+          {projects.map((project, index) => (
+            <motion.figure
+              className="gallery__item"
+              key={project.name}
+              variants={cardReveal}
+              custom={index}
+              whileHover={{ y: -10, scale: 1.01 }}
+            >
+              <motion.img src={project.image} alt={project.name} loading="lazy" />
               <figcaption>
                 <strong>{project.name}</strong>
                 <span>{project.detail}</span>
               </figcaption>
-            </figure>
+            </motion.figure>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section className="cta">
-        <div className="cta__text">
+      <motion.section className="cta" {...inViewConfig} variants={sectionFade}>
+        <motion.div className="cta__text" variants={fadeUp}>
           <p className="section-eyebrow">Piscinas impecables todo el año</p>
           <h2>
             Mantenimiento continuo
@@ -270,60 +396,67 @@ export default function HomePage() {
             Recibe informes tras cada visita, controla el estado del agua y confía en un plan diseñado para tu piscina. Nos
             encargamos de todo para que tú solo tengas que disfrutarla.
           </p>
-        </div>
-        <ul className="cta__list">
-          <li>
-            <strong>Visitas programadas</strong>
-            <span>Calendario adaptado a tu uso, con recordatorios automáticos.</span>
-          </li>
-          <li>
-            <strong>Control químico preciso</strong>
-            <span>Mediciones periódicas y ajustes exactos para garantizar seguridad.</span>
-          </li>
-          <li>
-            <strong>Asistencia 24/7</strong>
-            <span>Disponibilidad para emergencias con técnicos especializados.</span>
-          </li>
-        </ul>
-      </section>
+        </motion.div>
+        <motion.ul className="cta__list" variants={fadeUp}>
+          {[
+            {
+              title: 'Visitas programadas',
+              detail: 'Calendario adaptado a tu uso, con recordatorios automáticos.'
+            },
+            {
+              title: 'Control químico preciso',
+              detail: 'Mediciones periódicas y ajustes exactos para garantizar seguridad.'
+            },
+            {
+              title: 'Asistencia 24/7',
+              detail: 'Disponibilidad para emergencias con técnicos especializados.'
+            }
+          ].map((item, index) => (
+            <motion.li key={item.title} variants={cardReveal} custom={index}>
+              <strong>{item.title}</strong>
+              <span>{item.detail}</span>
+            </motion.li>
+          ))}
+        </motion.ul>
+      </motion.section>
 
-      <section className="process">
-        <div className="section-heading">
+      <motion.section className="process" {...inViewConfig} variants={sectionFade}>
+        <motion.div className="section-heading" variants={fadeUp}>
           <p className="section-eyebrow">Así trabajamos</p>
           <h2>Un proceso claro, eficiente y sin sorpresas</h2>
-        </div>
+        </motion.div>
         <div className="process__grid">
-          {steps.map((step) => (
-            <article className="process-card" key={step.title}>
+          {steps.map((step, index) => (
+            <motion.article className="process-card" key={step.title} variants={cardReveal} custom={index}>
               <h3>{step.title}</h3>
               <p>{step.description}</p>
-            </article>
+            </motion.article>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section className="contact" id="presupuesto">
-        <div className="section-heading">
+      <motion.section className="contact" id="presupuesto" {...inViewConfig} variants={sectionFade}>
+        <motion.div className="section-heading" variants={fadeUp}>
           <p className="section-eyebrow">Solicita tu propuesta</p>
           <h2>Pide un presupuesto personalizado</h2>
           <p className="section-description">
             Cuéntanos qué necesita tu piscina y te devolveremos una propuesta en menos de 24 horas.
           </p>
-        </div>
-        <form className="contact__form">
-          <div className="form-row">
+        </motion.div>
+        <motion.form className="contact__form" variants={contactReveal}>
+          <motion.div className="form-row" variants={fadeUp}>
             <label htmlFor="nombre">Nombre y apellidos</label>
             <input id="nombre" name="nombre" type="text" placeholder="Tu nombre" required />
-          </div>
-          <div className="form-row">
+          </motion.div>
+          <motion.div className="form-row" variants={fadeUp}>
             <label htmlFor="email">Correo electrónico</label>
             <input id="email" name="email" type="email" placeholder="tucorreo@email.com" required />
-          </div>
-          <div className="form-row">
+          </motion.div>
+          <motion.div className="form-row" variants={fadeUp}>
             <label htmlFor="telefono">Teléfono</label>
             <input id="telefono" name="telefono" type="tel" placeholder="Tu teléfono" />
-          </div>
-          <div className="form-row">
+          </motion.div>
+          <motion.div className="form-row" variants={fadeUp}>
             <label htmlFor="servicio">Servicio de interés</label>
             <select id="servicio" name="servicio" defaultValue="">
               <option value="" disabled>
@@ -335,8 +468,8 @@ export default function HomePage() {
               <option value="fontaneria">Fontanería y cloración salina</option>
               <option value="otro">Otros trabajos</option>
             </select>
-          </div>
-          <div className="form-row">
+          </motion.div>
+          <motion.div className="form-row" variants={fadeUp}>
             <label htmlFor="mensaje">Cuéntanos más detalles</label>
             <textarea
               id="mensaje"
@@ -344,14 +477,14 @@ export default function HomePage() {
               rows="4"
               placeholder="Describe el estado de tu piscina y qué necesitas resolver"
             />
-          </div>
-          <button className="button button--primary" type="submit">
+          </motion.div>
+          <motion.button className="button button--primary" type="submit" variants={fadeUp} whileHover={{ y: -3 }} whileTap={{ scale: 0.97 }}>
             Enviar solicitud
-          </button>
-        </form>
-      </section>
+          </motion.button>
+        </motion.form>
+      </motion.section>
 
-      <footer className="footer">
+      <motion.footer className="footer" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
         <div>
           <strong>Piscina Moisés</strong>
           <p>Servicio integral · Comunidad de Madrid y provincias colindantes</p>
@@ -360,7 +493,7 @@ export default function HomePage() {
           <a href="tel:+34911011222">91 101 12 22</a>
           <a href="mailto:hola@piscinamoises.es">hola@piscinamoises.es</a>
         </div>
-      </footer>
+      </motion.footer>
     </main>
   );
 }
