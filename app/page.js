@@ -298,6 +298,7 @@ function ProjectCarousel({ project, index }) {
       variants={cardReveal}
       custom={index}
       whileHover={{ y: -6, boxShadow: '0 28px 70px rgba(15, 64, 109, 0.18)' }}
+
     >
       <div className="project-card__header">
         <strong>{project.name}</strong>
@@ -360,6 +361,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+
         <div className="site-header__inner">
           <a className="site-header__brand" href="#inicio">
             Piscina Moisés
@@ -728,6 +730,7 @@ export default function HomePage() {
             </div>
           </div>
         </motion.footer>
+
       </main>
     </>
   );
